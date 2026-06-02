@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Summer Edit — Vintage Y2K Finds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #faf6f0;
+      --blush: #f2e0d5;
+      --dusty-rose: #c9a49a;
+      --mocha: #7a5c52;
+      --ink: #2a1f1a;
+      --sage: #a8b89a;
+      --peach: #e8bfa8;
+      --accent: #c06a4e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 38vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px 40px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--dusty-rose), transparent);
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 12px 0 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.25s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--mocha);
+      max-width: 500px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 6px 18px;
+      border: 1px solid var(--dusty-rose);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      background: var(--blush);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.55s forwards;
+    }
+
+    .grid-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--dusty-rose), transparent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 12px rgba(42,31,26,0.06);
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), box-shadow 0.35s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .card.visible {
+      animation: cardIn 0.55s ease forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(42,31,26,0.12);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--blush);
+      overflow: hidden;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    .card:hover .card-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .card-body {
+      padding: 18px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-era {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .card-detail {
+      font-size: 0.8rem;
+      color: var(--mocha);
+      font-weight: 300;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+
+    .card-cta {
+      display: block;
+      text-align: center;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border-radius: 2px;
+      transition: background 0.25s ease, letter-spacing 0.25s ease;
+    }
+
+    .card-cta::after {
+      content: '→';
+      margin-left: 8px;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .card:hover .card-cta {
+      background: var(--accent);
+      letter-spacing: 0.22em;
+    }
+
+    .card:hover .card-cta::after {
+      transform: translateX(3px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--blush);
+    }
+
+    footer p {
+      font-size: 0.72rem;
+      color: var(--dusty-rose);
+      font-weight: 300;
+      line-height: 1.9;
+    }
+
+    .deco-bar {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 28px auto 0;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.65s forwards;
+    }
+
+    .deco-bar span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--dusty-rose);
+    }
+
+    .deco-bar span:nth-child(2) { background: var(--peach); }
+    .deco-bar span:nth-child(3) { background: var(--sage); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .card-body { padding: 12px 14px 16px; }
+      .card-title { font-size: 0.88rem; }
+    }
+
+    @media (max-width: 380px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <p class="hero-eyebrow">Curated Vintage · Summer Edition</p>
+    <h1>The <em>Summer</em><br>Edit</h1>
+    <p class="hero-sub">Y2K dresses, slip silhouettes & floral babydolls — all deadstock & vintage finds. One-of-a-kind pieces, gone when they're gone.</p>
+    <span class="hero-badge">✦ &nbsp;All listings on eBay &nbsp;✦</span>
+    <div class="deco-bar">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <main class="grid-section">
+    <p class="section-label">10 Pieces · Shop the edit</p>
+    <div class="grid" id="grid">
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image1.jpg" alt="VTG Ralph Lauren Linen Dress Green Label" loading="lazy" />
+          <span class="card-tag">Ralph Lauren</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Vintage · Small</p>
+          <h2 class="card-title">Linen Intarsia Pullover Dress — Green Label</h2>
+          <p class="card-detail">Ralph Lauren Green Label Collection. Linen blend, intarsia knit detail. A rare label in a classic summer silhouette.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/318396195187?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image2.jpg" alt="Vintage Y2K Lapis Peach Coral Floral Midi Slip Dress" loading="lazy" />
+          <span class="card-tag">Y2K</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · S/M</p>
+          <h2 class="card-title">Lapis Peach Coral Floral Midi Slip Dress</h2>
+          <p class="card-detail">Spring feminine classic. Peach & coral floral print on a midi slip silhouette — dreamy layering piece.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/336613696442?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image3.jpg" alt="Vintage Y2K Slip Dress Midi Orange Tropical Chiffon Meghan Matthews" loading="lazy" />
+          <span class="card-tag">Resort</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · Size 12</p>
+          <h2 class="card-title">Orange Tropical Chiffon Midi — Meghan Matthews</h2>
+          <p class="card-detail">Fully chiffon, resort-ready. Meghan Matthews label, orange tropical print, midi length. Vacation energy.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/188454214914?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image4.jpg" alt="VTG 90s Y2K Babydoll Mini Dress XS Orange Brown Empire Waist Floral" loading="lazy" />
+          <span class="card-tag">Babydoll</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">90s Y2K · XS</p>
+          <h2 class="card-title">Orange Brown Floral Empire Waist Babydoll Mini</h2>
+          <p class="card-detail">Empire waist, mini length, earthy floral. That perfect '90s-to-Y2K babydoll energy in warm fall tones.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/287368231806?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image5.jpg" alt="Y2K Babydoll Dress Vintage Fairy Coquette Romantic Pink Ethereal" loading="lazy" />
+          <span class="card-tag">Fairy · Coquette</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · 13/14 Large</p>
+          <h2 class="card-title">Pink Ethereal Fairy Coquette Babydoll Dress</h2>
+          <p class="card-detail">Romantic pink, fairy-coded. Dreamy coquette babydoll silhouette — straight out of the early aughts aesthetic.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/358626611196?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image6.jpg" alt="Y2K Speechless Babydoll Dress Cottage Coquette Dainty Romantic Black" loading="lazy" />
+          <span class="card-tag">Speechless</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · Medium</p>
+          <h2 class="card-title">Black Cottage Coquette Babydoll — Speechless</h2>
+          <p class="card-detail">Dainty and romantic in black. Speechless label, cottage-coquette detailing. Dark feminine meets sweet silhouette.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/358220407628?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image7.jpg" alt="Vintage Y2K Sheer Fairy Top Coquette Festival Babydoll Split Hem Cami" loading="lazy" />
+          <span class="card-tag">Sheer · Fairy</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · Medium</p>
+          <h2 class="card-title">Sheer Fairy Cami Top — Festival Split Hem</h2>
+          <p class="card-detail">Sheer coquette cami with split hem. Festival-ready fairy top — pairs with everything or wears as a layer.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/358443244101?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image8.jpg" alt="Y2K Vintage Fully Lined Mini Dress Red Floral Zipper Back 3/4 Sleeve" loading="lazy" />
+          <span class="card-tag">Mini Dress</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · XS</p>
+          <h2 class="card-title">Red Floral Mini — Zipper Back, 3/4 Sleeve</h2>
+          <p class="card-detail">Fully lined red floral mini. Zipper back closure, 3/4 sleeves. Structured and feminine — goes anywhere.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/236796456661?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image9.jpg" alt="American Eagle Lime Green Mesh Babydoll Dress Womens Large Y2K Retro" loading="lazy" />
+          <span class="card-tag">American Eagle</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · Large</p>
+          <h2 class="card-title">Lime Green Mesh Babydoll — American Eagle</h2>
+          <p class="card-detail">AE lime green mesh babydoll. Retro Y2K casual energy — that early 2000s mall brand nostalgia in the best way.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/358627246321?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-img-wrap">
+          <img src="https://raw.githubusercontent.com/foodmaxxing/thrift-edit/main/image10.jpg" alt="Vintage Purple Y2K Sleeveless Trapeze Dress Floral Button Lace Fairy" loading="lazy" />
+          <span class="card-tag">Fairy · Lace</span>
+        </div>
+        <div class="card-body">
+          <p class="card-era">Y2K · Medium</p>
+          <h2 class="card-title">Purple Floral Lace Trapeze Dress — Button Up</h2>
+          <p class="card-detail">Sleeveless purple trapeze with floral buttons & lace trim. Fairy-coded summer dress with a vintage cottage feel.</p>
+          <a class="card-cta" href="https://www.ebay.com/itm/137325243050?mkcid=1&mkevt=1&mkrid=711-53200-19255-0&campid=5339148928&toolid=10001" target="_blank" rel="nofollow sponsored noopener">View on eBay</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      Curated vintage finds · All items sold individually on eBay<br>
+      <small>As an eBay Partner, we may earn a commission from qualifying purchases. This doesn't affect the price you pay.</small>
+    </p>
+  </footer>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const i = Array.from(cards).indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('visible'), (i % 4) * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach((card, i) => {
+      card.style.animationDelay = `${(i % 4) * 80}ms`;
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
